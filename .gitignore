@@ -1,0 +1,40 @@
+# Dependencias de Node
+/node_modules
+/.pnp
+.pnp.js
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Logs y reportes
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+coverage/
+
+# Editor/IDE
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Build/compilación
+dist/
+build/
+out/
+.cache/
+
+# Archivos temporales
+tmp/
+temp/

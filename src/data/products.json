@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Fideos",
+    "description": "Spaghetti N7 Lucchetti 500 Gr.",
+    "price": "1365.00",
+    "status": true,
+    "stock": "15",
+    "category": "Almacén",
+    "thumbnail": "https://ardiaprod.vtexassets.com/arquivos/ids/308821-800-auto?v=638599348925470000"
+  },
+  {
+    "id": 2,
+    "title": "Coca-Cola",
+    "description": "Gaseosa Coca-Cola Sabor Original 2.25 Lt.",
+    "price": "4100.00",
+    "status": true,
+    "stock": "41",
+    "category": "Bebidas",
+    "thumbnail": "https://ardiaprod.vtexassets.com/arquivos/ids/307376-800-auto?v=638599329582770000"
+  },
+  {
+    "id": 3,
+    "title": "Lavandina",
+    "description": "Lavandina Ayudín Original 1 Lt.",
+    "price": "860.00",
+    "status": true,
+    "stock": "22",
+    "category": "Limpieza",
+    "thumbnail": "https://ardiaprod.vtexassets.com/arquivos/ids/307481-500-auto?v=638599330863300000"
+  },
+  {
+    "id": 4,
+    "title": "Chicle",
+    "description": "Chicle Bubbaloo Menta 5 Gr.",
+    "price": "180.00",
+    "status": true,
+    "stock": "66",
+    "category": "Kiosco",
+    "thumbnail": "https://ardiaprod.vtexassets.com/arquivos/ids/326377-800-auto?v=638599594304670000"
+  }
+]
