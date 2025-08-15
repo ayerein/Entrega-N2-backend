@@ -1,0 +1,25 @@
+<div class="product-container">
+  <div class="product-image-container">
+    <img src="{{product.img_producto}}" alt="{{product.nombre_producto}}" class="product-image">
+  </div>
+  
+  <div class="product-details">
+    <span class="product-category">{{product.nombre_categoria}}</span>
+    <h1 class="product-title">{{product.nombre_producto}}</h1>
+    <p class="product-brand">{{product.marca_producto}}</p>
+    
+    <div class="product-price">
+      <span class="price-amount">${{product.precio_producto}}</span>
+    </div>
+    
+    <div class="product-description">
+      <h3>Descripción</h3>
+      <p>{{product.descripcion_producto}}</p>
+    </div>
+
+    
+    <button class="add-to-cart-btn" id="add-to-cart-btn">Añadir al carrito</button>
+  </div>
+</div>
+
+<script src="/js/products.js"></script>

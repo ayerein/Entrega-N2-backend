@@ -1,49 +1,94 @@
 import { Router } from 'express';
-import ProductManager from '../managers/ProductManager.js';
+import {getProducts} from '../managers/ProductManager.js';
+import Product from '../models/product.model.js';
 
 const router = Router();
-const productManager = new ProductManager('./src/data/products.json');
 
-router.get('/', (req, res) => {
-    try {
-        const products = productManager.getProducts();
-        res.render('realTimeProducts', {products})
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+router.get('/', async (req, res) => {
+    const { limit = 10, page = 1, sort, category } = req.query;
+
+
+    let {products,totalProducts} = await getProducts({limit,page,sort,category})
+    
+    
+    
+    let totalPages = Math.ceil(totalProducts / limit);
+
+    const buildLink = (pageNum) => {
+        const newQuery = { ...req.query, page: pageNum };
+        const queryString = new URLSearchParams(newQuery).toString();
+        return `${req.protocol}://${req.get('host')}${req.originalUrl.split('?')[0]}?${queryString}`;
+    };
+
+    const hasPrevPage = page > 1;
+    const hasNextPage = page < totalPages;
+
+    const response = {
+            status: 'success',
+            payload: products,
+            totalPages,
+            prevPage: hasPrevPage ? page - 1 : null,
+            nextPage: hasNextPage ? Number(page) + 1 : null,
+            page,
+            hasPrevPage,
+            hasNextPage,
+            prevLink: hasPrevPage ? buildLink(page - 1) : null,
+            nextLink: hasNextPage ? buildLink(Number(page) + 1) : null
+        };
+    
+        res.json(response);
 });
 
-router.get('/:pid', (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
-        const product = productManager.getProductById(req.params.pid);
+        const id = req.params.id
+        const product = await Product.findById(id)
         res.json(product);
     } catch (error) {
         res.status(404).json({ error: error.message });
     }
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     try {
-        const newProduct = productManager.addProduct(req.body);
-        res.status(201).json(newProduct);
+        const product = new Product(req.body);
+        await product.save();
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 });
 
-router.put('/:pid', (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
-        const updatedProduct = productManager.updateProduct(req.params.pid, req.body);
-        res.json(updatedProduct);
+        const productUpdated = await Product.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true, runValidators: true }
+        );
+        
+        if (!productUpdated) {
+        return res.status(404).json({ error: 'Producto no encontrado' });
+        }
+        
+        res.json(productUpdated);
     } catch (error) {
         res.status(404).json({ error: error.message });
     }
 });
 
-router.delete('/:pid', (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
-        productManager.deleteProduct(req.params.pid);
-        res.status(204).end();
+        const id = req.params.id
+        const productoEliminado = await Product.findByIdAndDelete(id);
+
+        if (!productoEliminado) {
+        return res.status(404).json({ error: 'Producto no encontrado' });
+        }
+        
+        res.json({ 
+        message: 'Producto eliminado correctamente',
+        producto: productoEliminado 
+        });
     } catch (error) {
         res.status(404).json({ error: error.message });
     }

@@ -6,40 +6,24 @@
         <h2 class="title-new-product">Agregar nuevo producto</h2>
         <div class="container-form-new-product">
             <form action="/realtimeproducts" method="POST" id="form-products" class="form-new-product">
-                <label for="title">Producto:</label>
+                <label for="title">Nombre:</label>
                 <input type="text" name="title"  id="title" class="title-form" required>
-                <label for="title">Descripcion:</label>
-                <input type="text" name="description" id="description" class="description-form" required>
+                <label for="brand">Marca:</label>
+                <input type="text" name="brand"  id="brand" class="brand-form" required>
+                <label for="description">Descripcion:</label>
+                <input type="text" name="description" id="description" class="description-form">
                 <label for="price">Precio:</label>
                 <input type="text" name="price" id="price" class="price-form" required>
-                <label for="price">Stock:</label>
-                <input type="text" name="stock" id="stock" class="stock-form" required>
-                <label for="title">Categoria:</label>
-                <input type="text" name="category"  id="category" class="category-form" required>
                 <label for="thumbnail">Url de la imagen:</label>
                 <input type="text" name="thumbnail" id="thumbnail" class="thumbnail-form" required>
+                <label for="category">Categoria:</label>
+                <input type="text" name="category"  id="category" class="category-form" required>
+                <label for="stock">Stock:</label>
+                <input type="text" name="stock" id="stock" class="stock-form" required>
                 <input type="submit" id="agregar-producto" class="button-form" value="Agregar producto">
             </form>
         </div>
     </div>
-    <div class="container-view-products">
-        <h2 class="title-view-products">Vista de productos</h2>
-            <table class="table-view-products">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Stock</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody id="tabla">
-            </tbody>
-            </table>
-    </div>
 </div>
-<script src="/socket.io/socket.io.js"></script>
+
 <script src="/js/realTimeProducts.js"></script>

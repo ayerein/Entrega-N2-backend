@@ -10,16 +10,6 @@
     "thumbnail": "https://ardiaprod.vtexassets.com/arquivos/ids/308821-800-auto?v=638599348925470000"
   },
   {
-    "id": 2,
-    "title": "Coca-Cola",
-    "description": "Gaseosa Coca-Cola Sabor Original 2.25 Lt.",
-    "price": "4100.00",
-    "status": true,
-    "stock": "41",
-    "category": "Bebidas",
-    "thumbnail": "https://ardiaprod.vtexassets.com/arquivos/ids/307376-800-auto?v=638599329582770000"
-  },
-  {
     "id": 3,
     "title": "Lavandina",
     "description": "Lavandina Ayudín Original 1 Lt.",
@@ -38,5 +28,25 @@
     "stock": "66",
     "category": "Kiosco",
     "thumbnail": "https://ardiaprod.vtexassets.com/arquivos/ids/326377-800-auto?v=638599594304670000"
+  },
+  {
+    "id": 5,
+    "title": "Coca-Cola",
+    "description": "Gaseosa Coca-Cola Sabor Original 2.25 Lt.",
+    "price": "4100.00",
+    "status": true,
+    "stock": "41",
+    "category": "Bebidas",
+    "thumbnail": "https://ardiaprod.vtexassets.com/arquivos/ids/307376-800-auto?v=638599329582770000"
+  },
+  {
+    "id": 6,
+    "title": "Leche Multidefensa 1% La Serenisima 1 Lt.",
+    "description": "Leche parcialmente descremada ultrapasteurizada homogeneizada, fortificada con  vitaminas A y D. Libre de gluten. Fuente de vitaminas C y E.",
+    "price": "1450",
+    "status": true,
+    "stock": "22",
+    "category": "Frescos",
+    "thumbnail": "https://ardiaprod.vtexassets.com/arquivos/ids/343574-800-auto?v=638732575879930000"
   }
 ]

@@ -1,64 +1,36 @@
-import fs from 'fs';
-
-export default class CartManager {
-    constructor(path) {
-        this.path = path;
-        this.carts = [];
-        this.nextId = 1;
-        this.loadCarts();
-    }
-
-    loadCarts() {
-        try {
-            const data = fs.readFileSync(this.path, 'utf-8');
-            this.carts = JSON.parse(data);
-        } catch (error) {
-            this.carts = [];
-            this.saveCarts();
+import Cart from "../models/cart.model.js";
+import Product from "../models/product.model.js";
+ 
+export const addProduct = async ({cartId,productId,quantity}) => {
+    try {
+        const product = await Product.findById(productId);
+        if (!product) {
+            throw new Error("Producto no encontrado");
         }
-    }
 
-    saveCarts() {
-        fs.writeFileSync(this.path, JSON.stringify(this.carts, null, 2));
-    }
-
-    createCart() {
-        const id = this.generateId();
-        const newCart = {
-            id,
-            products: []
-        };
-        this.carts.push(newCart);
-        this.saveCarts();
-        return newCart;
-    }
-
-    getCartById(id) {
-        const cart = this.carts.find(c => c.id === Number(id));
+        const cart = await Cart.findById(cartId);
         if (!cart) {
-            throw new Error('Carrito no encontrado');
+            throw new Error("Carrito no encontrado");
         }
-        return cart;
-    }
 
-    addProductToCart(cartId, productId) {
-        const cart = this.getCartById(cartId);
-        const existingProduct = cart.products.find(p => p.product === productId);
+        const existingItemIndex = cart.items.findIndex(item => 
+            item.product.toString() === productId.toString()
+        );
 
-        if (existingProduct) {
-            existingProduct.quantity += 1;
+        if (existingItemIndex >= 0) {
+            cart.items[existingItemIndex].quantity += quantity;
+            cart.items[existingItemIndex].addedAt = new Date();
         } else {
-            cart.products.push({
-                product: productId,
-                quantity: 1
+            cart.items.push({
+            product: productId,
+            quantity,
+            price: product.precio_producto
             });
         }
 
-        this.saveCarts();
-        return cart;
-    }
-
-    generateId() {
-        return this.nextId++;
+        const updatedCart = await cart.save();
+        console.log(updatedCart);
+    } catch (error) {
+        console.log({ error: error.message });
     }
 }

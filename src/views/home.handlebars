@@ -4,36 +4,55 @@
     </div>
     <div class="container-view-products">
         <h2 class="title-view-products">Vista de productos</h2>
-        {{#if products.length}}
-            <table class="table-view-products">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Stock</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Imagen</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each products}}
-                    <tr>
-                    <td>{{this.id}}</td>
-                    <td>{{this.title}}</td>
-                    <td>{{this.description}}</td>
-                    <td>${{this.price}}</td>
-                    <td>{{this.stock}}</td>
-                    <td>{{this.category}}</td>
-                    <td><img src="{{this.thumbnail}}" alt="{{this.title}}" class="img-table"></td>
-                    </tr>
+        <form method="GET" action="/" class="mb-4">
+            <div class="form-group">
+                <label for="category">Filtrar por categoría:</label>
+                <select 
+                name="category" 
+                id="category" 
+                class="form-control"
+                onchange="this.form.submit()"
+                >
+                <option value="">Todas las categorías</option>
+                {{#each categories}}
+                    <option 
+                    value="{{this.value}}" 
+                    {{#if (eq this.value ../selectedCategory)}}selected{{/if}}
+                    >
+                    {{this.text}}
+                    </option>
                 {{/each}}
-            </tbody>
-            </table>
+                </select>
+            </div>
+        </form>
+        <form action="/" method="get" class="sort-form">
+            <label for="sort">Ordenar por:</label>
+            <select name="sort" id="sort" onchange="this.form.submit()">
+                {{#each sortOptions}}
+                <option value="{{this.value}}" {{#if (eq this.value ../currentSort)}}selected{{/if}}>
+                    {{this.text}}
+                </option>
+                {{/each}}
+            </select>
+        </form>
+        {{#if products.length}}
+            <div class="home-container-products">
+                {{#each products}}
+
+                    <div class="cart-product">
+                        <img src="{{this.img_producto}}" alt="{{this.nombre_producto}}" class="img-table">
+                        <p>{{this.nombre_producto}}</p>
+                        <p>${{this.precio_producto}}</p>
+                        <a href=products/{{this._id}}>Ver producto</a>
+                    </div>
+                    
+                {{/each}}
+            </div>
         {{else}}
         <p>No hay productos disponibles.</p>
         {{/if}}
     </div>
 </div>
 </div>
+
+<script src="/js/home.js"></script>

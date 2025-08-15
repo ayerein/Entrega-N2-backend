@@ -1,4 +1,4 @@
-import fs from 'fs';
+/* import fs from 'fs';
 
 export default class ProductManager {
     constructor(path) {
@@ -94,4 +94,34 @@ export default class ProductManager {
     generateId() {
         return this.nextId++;
     }
+} */
+
+import Product from "../models/product.model.js";
+
+
+export const getProducts = async ({limit, page, sort, category}) => {
+    const skip = (page - 1) * limit;
+    
+    let sortOption = {};
+    if (sort === 'asc') sortOption = { precio_producto: 1 };
+    if (sort === 'desc') sortOption = { precio_producto: -1 };
+
+    let filter
+        
+    if (category){
+        let categoryOption = category.charAt(0).toUpperCase() + category.slice(1)
+        filter = { nombre_categoria: `${categoryOption}` }
+    }
+
+    let totalProducts = await Product.countDocuments(filter)
+
+    const products = await Product.find(filter)
+    .skip(skip)
+    .limit(limit)
+    .sort(sortOption)
+    .lean()
+    
+    return({products,totalProducts})
+        
 }
+
